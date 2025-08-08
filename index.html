@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confeitaria Artesanal Doce Sabor - Cardápio Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weather.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>Doce Sabor</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">Início</a></li>
+                    <li><a href="sobrenos.html" class="nav-link">Sobre Nós</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                    <li><a href="auth.html" class="nav-link" id="authLink">Login</a></li>
+                    <li>
+                        <button class="cart-btn" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Confeitaria Artesanal Doce Sabor</h1>
+                <p class="hero-subtitle">Cardápio Online Exclusivo</p>
+                <p class="hero-description">Deliciosos bolos artesanais feitos com amor e ingredientes selecionados</p>
+                <button class="cta-btn" onclick="scrollToMenu()">
+                    <i class="fas fa-utensils"></i>
+                    Ver Cardápio Completo
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                     alt="Bolo decorado artesanal da Confeitaria Doce Sabor">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Especiais</h2>
+                <p>Bolos artesanais preparados com ingredientes premium</p>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Seu Carrinho</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete:</span>
+                    <span id="shipping">R$ 15,00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">R$ 15,00</span>
+                </div>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()" id="checkoutBtn" disabled>
+                <i class="fas fa-credit-card"></i>
+                Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-credit-card"></i> Finalizar Pedido</h3>
+                <button class="close-modal" onclick="closeCheckout()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="checkoutForm">
+                    <div class="form-section">
+                        <h4><i class="fas fa-user"></i> Dados Pessoais</h4>
+                        <div class="form-group">
+                            <label for="fullName">Nome Completo *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-map-marker-alt"></i> Endereço de Entrega</h4>
+                        <div class="form-group">
+                            <label for="address">Endereço Completo *</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-credit-card"></i> Forma de Pagamento</h4>
+                        <div class="payment-methods">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="pix" checked>
+                                <span class="payment-label">
+                                    <i class="fas fa-qrcode"></i>
+                                    PIX
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="credit">
+                                <span class="payment-label">
+                                    <i class="fas fa-credit-card"></i>
+                                    Cartão de Crédito
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="debit">
+                                <span class="payment-label">
+                                    <i class="fas fa-credit-card"></i>
+                                    Cartão de Débito
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="pixDetails">
+                        <div class="pix-info">
+                            <div class="qr-code">
+                                <i class="fas fa-qrcode"></i>
+                                <p>QR Code PIX</p>
+                                <small>Escaneie o código após confirmar o pedido</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="cardDetails" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardNumber">Número do Cartão *</label>
+                                <input type="text" id="cardNumber" name="cardNumber" placeholder="0000 0000 0000 0000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardName">Nome no Cartão *</label>
+                                <input type="text" id="cardName" name="cardName">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry">Validade *</label>
+                                <input type="text" id="expiry" name="expiry" placeholder="MM/AA">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="observations">Observações</label>
+                            <textarea id="observations" name="observations" rows="3" placeholder="Alguma observação especial para seu pedido?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <h4>Resumo do Pedido</h4>
+                        <div id="orderSummary"></div>
+                        <div class="total-amount">
+                            <strong>Total: <span id="modalTotal">R$ 0,00</span></strong>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="confirm-order-btn">
+                        <i class="fas fa-check"></i>
+                        Confirmar Pedido
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-birthday-cake"></i> Doce Sabor</h3>
+                    <p>Confeitaria artesanal com mais de 10 anos de tradição em doces especiais.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <p><i class="fas fa-envelope"></i> contato@docesabor.com.br</p>
+                    <p><i class="fas fa-map-marker-alt"></i> São Paulo, SP</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horário de Funcionamento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 8h às 16h</p>
+                    <p>Domingo: Fechado</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Confeitaria Doce Sabor. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- User Profile Dropdown -->
+    <div class="user-profile-dropdown" id="userProfileDropdown" style="display: none;">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img id="userAvatar" src="" alt="Avatar do usuário">
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class="profile-info">
+                <div class="profile-name" id="userName"></div>
+                <div class="profile-email" id="userEmail"></div>
+            </div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="profile-menu-item">
+                <i class="fas fa-user"></i>
+                Meu Perfil
+            </a>
+            <a href="#" class="profile-menu-item">
+                <i class="fas fa-history"></i>
+                Histórico de Pedidos
+            </a>
+            <a href="#" class="profile-menu-item">
+                <i class="fas fa-heart"></i>
+                Favoritos
+            </a>
+            <hr class="profile-divider">
+            <a href="#" class="profile-menu-item" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair
+            </a>
+        </div>
+    </div>
+    <script src="js/auth.service.js"></script>
+    <script src="js/weather.service.js"></script>
+    <script src="js/weather-ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

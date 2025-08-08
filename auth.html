@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Confeitaria Doce Sabor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+    <!-- Header -->
+    <header class="auth-header">
+        <div class="auth-nav">
+            <div class="nav-logo">
+                <i class="fas fa-birthday-cake"></i>
+                <span>Doce Sabor</span>
+            </div>
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i>
+                Voltar ao site
+            </a>
+        </div>
+    </header>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <div class="auth-header-content">
+                    <h2>Bem-vindo de volta!</h2>
+                    <p>Entre na sua conta para continuar</p>
+                </div>
+
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                        <span class="error-message" id="loginEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" name="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Manter conectado
+                        </label>
+                        <a href="#" class="forgot-password" onclick="showForgotPassword()">Esqueci minha senha</a>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary" id="loginBtn">
+                        <span class="btn-text">Entrar</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <button class="google-btn" id="googleLoginBtn">
+                    <svg class="google-icon" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continuar com Google
+                </button>
+
+                <div class="auth-footer">
+                    <p>Não tem uma conta? <a href="#" onclick="showRegister()">Criar conta</a></p>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <div class="auth-header-content">
+                    <h2>Criar conta</h2>
+                    <p>Junte-se à nossa comunidade de amantes de doces</p>
+                </div>
+
+                <form id="registerFormElement">
+                    <div class="form-group">
+                        <label for="registerName">Nome completo</label>
+                        <input type="text" id="registerName" name="name" required>
+                        <span class="error-message" id="registerNameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">E-mail</label>
+                        <input type="email" id="registerEmail" name="email" required>
+                        <span class="error-message" id="registerEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <div class="password-input">
+                            <input type="password" id="registerPassword" name="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill"></div>
+                            </div>
+                            <span class="strength-text">Digite uma senha</span>
+                        </div>
+                        <span class="error-message" id="registerPasswordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar senha</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="acceptTerms" required>
+                            <span class="checkmark"></span>
+                            Aceito os <a href="#" onclick="showTerms()">termos de privacidade</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary" id="registerBtn">
+                        <span class="btn-text">Criar conta</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <button class="google-btn" id="googleRegisterBtn">
+                    <svg class="google-icon" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continuar com Google
+                </button>
+
+                <div class="auth-footer">
+                    <p>Já tem uma conta? <a href="#" onclick="showLogin()">Fazer login</a></p>
+                </div>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div class="auth-form" id="forgotPasswordForm" style="display: none;">
+                <div class="auth-header-content">
+                    <h2>Recuperar senha</h2>
+                    <p>Digite seu e-mail para receber as instruções</p>
+                </div>
+
+                <form id="forgotPasswordFormElement">
+                    <div class="form-group">
+                        <label for="forgotEmail">E-mail</label>
+                        <input type="email" id="forgotEmail" name="email" required>
+                        <span class="error-message" id="forgotEmailError"></span>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary" id="forgotBtn">
+                        <span class="btn-text">Enviar instruções</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Lembrou da senha? <a href="#" onclick="showLogin()">Fazer login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal welcome-modal">
+            <div class="modal-content">
+                <div class="welcome-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Bem-vindo à Doce Sabor!</h3>
+                <p>Sua conta foi criada com sucesso. Agora você pode aproveitar todos os nossos doces especiais!</p>
+                <button class="auth-btn primary" onclick="closeWelcomeModal()">
+                    Começar a explorar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal terms-modal">
+            <div class="modal-header">
+                <h3>Termos de Privacidade</h3>
+                <button class="close-modal" onclick="closeTermsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="terms-content">
+                    <h4>1. Coleta de Dados</h4>
+                    <p>Coletamos apenas as informações necessárias para fornecer nossos serviços, incluindo nome, e-mail e preferências de pedidos.</p>
+                    
+                    <h4>2. Uso das Informações</h4>
+                    <p>Suas informações são utilizadas para processar pedidos, melhorar nossos serviços e enviar comunicações relevantes.</p>
+                    
+                    <h4>3. Proteção de Dados</h4>
+                    <p>Implementamos medidas de segurança para proteger suas informações pessoais contra acesso não autorizado.</p>
+                    
+                    <h4>4. Cookies</h4>
+                    <p>Utilizamos cookies para melhorar sua experiência de navegação e personalizar nossos serviços.</p>
+                    
+                    <h4>5. Contato</h4>
+                    <p>Para dúvidas sobre nossa política de privacidade, entre em contato através do e-mail: contato@docesabor.com.br</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="auth-btn secondary" onclick="closeTermsModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        // Firebase configuration (replace with your config)
+        const firebaseConfig = {
+            apiKey: "demo-api-key",
+            authDomain: "doce-sabor-demo.firebaseapp.com",
+            projectId: "doce-sabor-demo",
+            storageBucket: "doce-sabor-demo.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // Make auth available globally
+        window.firebaseAuth = auth;
+    </script>
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <script src="js/auth.service.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
